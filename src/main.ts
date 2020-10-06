@@ -1,4 +1,4 @@
-import { App } from '@aws-cdk/core';
+import { App, Annotations } from '@aws-cdk/core';
 import { DemoStack } from './stack';
 
 // for development, use account/region from cdk cli
@@ -9,20 +9,24 @@ const devEnv = {
 
 const app = new App();
 
-const acm = app.node.tryGetContext('acm');
-const zoneId = app.node.tryGetContext('zoneId');
-const zoneName = app.node.tryGetContext('zoneName');
+const DEFAULT_UNDEFINED_STRING = 'undefined'
 
+const ctx = {
+  'acm': app.node.tryGetContext('acm'),
+  'zoneId': app.node.tryGetContext('zoneId'),
+  'zoneName': app.node.tryGetContext('zoneName'),
+};
 
-if (!(acm && zoneId && zoneName)) {
-  throw new Error('Error: acm, zoneId and zoneName is required');
+if (!(ctx.acm && ctx.zoneId && ctx.zoneName)) {
+  Annotations.of(app).addError('Error: acm, zoneId and zoneName is required')
 }
 
-new DemoStack(app, 'asg-stack-dev', {
-  env: devEnv,
-  acm,
-  zoneId,
-  zoneName,
+
+new DemoStack(app, 'asg-stack-dev', { 
+  env: devEnv, 
+  acm: ctx.acm || DEFAULT_UNDEFINED_STRING,
+  zoneId: ctx.zoneId || DEFAULT_UNDEFINED_STRING,
+  zoneName: ctx.zoneName || DEFAULT_UNDEFINED_STRING,
 });
 // new MyStack(app, 'my-stack-prod', { env: prodEnv });
 
