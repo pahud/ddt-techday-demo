@@ -9,21 +9,21 @@ const devEnv = {
 
 const app = new App();
 
-const DEFAULT_UNDEFINED_STRING = 'undefined'
+const DEFAULT_UNDEFINED_STRING = 'undefined';
 
 const ctx = {
-  'acm': app.node.tryGetContext('acm'),
-  'zoneId': app.node.tryGetContext('zoneId'),
-  'zoneName': app.node.tryGetContext('zoneName'),
+  acm: app.node.tryGetContext('acm'),
+  zoneId: app.node.tryGetContext('zoneId'),
+  zoneName: app.node.tryGetContext('zoneName'),
 };
 
 if (!(ctx.acm && ctx.zoneId && ctx.zoneName)) {
-  Annotations.of(app).addError('Error: acm, zoneId and zoneName is required')
+  Annotations.of(app).addError('Error: acm, zoneId and zoneName is required');
 }
 
 
-new DemoStack(app, 'asg-stack-dev', { 
-  env: devEnv, 
+new DemoStack(app, 'asg-stack-dev', {
+  env: devEnv,
   acm: ctx.acm || DEFAULT_UNDEFINED_STRING,
   zoneId: ctx.zoneId || DEFAULT_UNDEFINED_STRING,
   zoneName: ctx.zoneName || DEFAULT_UNDEFINED_STRING,
