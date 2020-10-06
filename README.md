@@ -5,9 +5,9 @@ DDT Tech Day Demo CDK Part.
 ![](./image/asg.png)
 
 ## Need three value ?!
-1. ROUTE53_HOST_ZONE_ID and ROUTE53_HOST_ZONE_NAME  like `example.com` and `ZXXXXXXXXXX` .
+1. `ZONEID` and `ZONENAME`  like `example.com` and `ZXXXXXXXXXX`  on Rouet53 Page.
 ![](./image/ddt-tech-r53-1.png)
-2. AMAZON_Certificates_Manager_ARN like
+2. `ACMARN` is Amazon Certificates Manager like
     `arn:aws:acm:region:account-id:certificate/xxxxxxx-oooo-oooo-oooo-xxxxxxxx` .
 ![](./image/ddt-tech-acm-1.png)
 
@@ -19,18 +19,14 @@ export ROUTE53_HOST_ZONE_NAME=example.com
 export AMAZON_Certificates_Manager_ARN=arn:aws:acm:region:account-id:certificate/xxxxxxx-oooo-oooo-oooo-xxxxxxxx
 
 #To synth 
-yarn synth -c zoneId=${ROUTE53_HOST_ZONE_ID} -c zoneName=${ROUTE53_HOST_ZONE_NAME} \
--c acm=${AMAZON_Certificates_Manager_ARN} 
+yarn synth -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
 
 #To Diff
-yarn diff -c zoneId=${ROUTE53_HOST_ZONE_ID} -c zoneName=${ROUTE53_HOST_ZONE_NAME} \
--c acm=${AMAZON_Certificates_Manager_ARN} 
+yarn diff -c -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
 
 #To Deploy
-yarn deploy --require-approval never -c zoneId=${ROUTE53_HOST_ZONE_ID} \
--c zoneName=${ROUTE53_HOST_ZONE_NAME} -c acm=${AMAZON_Certificates_Manager_ARN} 
+yarn deploy --require-approval never -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN 
 
 #To Destroy
-yarn destroy -f -c zoneId=${ROUTE53_HOST_ZONE_ID} -c zoneName=${ROUTE53_HOST_ZONE_NAME} \
--c acm=${AMAZON_Certificates_Manager_ARN} 
+yarn destroy -f -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
 ```
