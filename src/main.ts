@@ -21,7 +21,7 @@ const ctx = {
 const stack = new Stack(app, 'DemoStack', { env: devEnv })
 
 if (!(ctx.acm && ctx.zoneId && ctx.zoneName)) {
-  Annotations.of(stack).addWarning('Warning: acm, zoneId and zoneName is required')
+  Annotations.of(stack).addWarning('Warning: acm, zoneId and zoneName from context variables not found.')
 }
 
 new Demo(stack, 'asg-stack-dev', { 
