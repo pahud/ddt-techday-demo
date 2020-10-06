@@ -1,5 +1,5 @@
-import { App, Annotations } from '@aws-cdk/core';
-import { DemoStack } from './stack';
+import { App, Annotations, Stack } from '@aws-cdk/core';
+import { Demo } from './demo';
 
 // for development, use account/region from cdk cli
 const devEnv = {
@@ -17,13 +17,14 @@ const ctx = {
   zoneName: app.node.tryGetContext('zoneName'),
 };
 
+
+const stack = new Stack(app, 'DemoStack', { env: devEnv });
+
 if (!(ctx.acm && ctx.zoneId && ctx.zoneName)) {
-  Annotations.of(app).addError('Error: acm, zoneId and zoneName is required');
+  Annotations.of(stack).addWarning('Error: acm, zoneId and zoneName is required');
 }
 
-
-new DemoStack(app, 'asg-stack-dev', {
-  env: devEnv,
+new Demo(stack, 'asg-stack-dev', {
   acm: ctx.acm || DEFAULT_UNDEFINED_STRING,
   zoneId: ctx.zoneId || DEFAULT_UNDEFINED_STRING,
   zoneName: ctx.zoneName || DEFAULT_UNDEFINED_STRING,

@@ -5,9 +5,9 @@ import * as elb from '@aws-cdk/aws-elasticloadbalancingv2';
 import * as iam from '@aws-cdk/aws-iam';
 import * as r53 from '@aws-cdk/aws-route53';
 import * as r53tg from '@aws-cdk/aws-route53-targets';
-import { Construct, Stack, StackProps, CfnOutput, Duration } from '@aws-cdk/core';
+import { Construct, CfnOutput, Duration } from '@aws-cdk/core';
 
-interface DemoStackProps extends StackProps {
+interface DemoProps {
   /**
    * The ID of the Route 53 Hosted Zone.
    */
@@ -22,9 +22,9 @@ interface DemoStackProps extends StackProps {
   acm: string;
 }
 
-export class DemoStack extends Stack {
-  constructor(scope: Construct, id: string, props: DemoStackProps) {
-    super(scope, id, props);
+export class Demo extends Construct {
+  constructor(scope: Construct, id: string, props: DemoProps) {
+    super(scope, id);
     const userData = ec2.UserData.forLinux();
     userData.addCommands(`
 set -xe
