@@ -19,14 +19,14 @@ export ROUTE53_HOST_ZONE_NAME=example.com
 export AMAZON_Certificates_Manager_ARN=arn:aws:acm:region:account-id:certificate/xxxxxxx-oooo-oooo-oooo-xxxxxxxx
 
 #To synth 
-yarn synth -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
+cdk synth -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
 
 #To Diff
-yarn diff -c -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
+cdk diff -c -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
 
 #To Deploy
-yarn deploy --require-approval never -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN 
+cdk deploy --require-approval never -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN 
 
 #To Destroy
-yarn destroy -f -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
+cdk destroy -f -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
 ```
