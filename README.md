@@ -28,5 +28,5 @@ cdk diff -c -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
 cdk deploy --require-approval never -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN 
 
 #To Destroy
-cdk destroy -f -c zoneName=$ZONENAME  -c zoneId=$ZONEID -c acm=$ACMARN
+cdk destroy -f
 ```
