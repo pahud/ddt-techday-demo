@@ -15,11 +15,11 @@ const zoneName = app.node.tryGetContext('zoneName');
 
 
 if (!(acm && zoneId && zoneName)) {
-  throw new Error('Error: acm, zoneId and zoneName is required')
+  throw new Error('Error: acm, zoneId and zoneName is required');
 }
 
-new DemoStack(app, 'asg-stack-dev', { 
-  env: devEnv, 
+new DemoStack(app, 'asg-stack-dev', {
+  env: devEnv,
   acm,
   zoneId,
   zoneName,
