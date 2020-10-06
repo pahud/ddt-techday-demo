@@ -5,17 +5,26 @@ import * as elb from '@aws-cdk/aws-elasticloadbalancingv2';
 import * as iam from '@aws-cdk/aws-iam';
 import * as r53 from '@aws-cdk/aws-route53';
 import * as r53tg from '@aws-cdk/aws-route53-targets';
-import { Construct, Stack, StackProps, CfnOutput, Duration } from '@aws-cdk/core';
+import { Construct, CfnOutput, Duration } from '@aws-cdk/core';
 
-interface DemoStackProps extends StackProps {
-  zoneId?: string;
-  zoneName?: string;
-  acm?: string;
+interface DemoProps {
+  /**
+   * The ID of the Route 53 Hosted Zone.
+   */
+  zoneId: string;
+  /**
+   * The name of the Route 53 Hosted Zone.
+   */
+  zoneName: string;
+  /**
+   * The ARN of Amazon Certificate Manager(ACM)
+   */
+  acm: string;
 }
 
-export class DemoStack extends Stack {
-  constructor(scope: Construct, id: string, props?: DemoStackProps) {
-    super(scope, id, props);
+export class Demo extends Construct {
+  constructor(scope: Construct, id: string, props: DemoProps) {
+    super(scope, id);
     const userData = ec2.UserData.forLinux();
     userData.addCommands(`
 set -xe
@@ -35,10 +44,7 @@ exit 0`);
       maxAzs: 2,
       natGateways: 1,
     });
-    const acmArn = props?.acm ?? this.node.tryGetContext('acm');
-    if (!acmArn) {
-      throw new Error('ACM ARN is required.');
-    }
+    const acmArn = props.acm;
     const acm = certmgr.Certificate.fromCertificateArn(this, 'demoAcm', acmArn);
     const alb = new elb.ApplicationLoadBalancer(this, 'myalb', {
       vpc,
@@ -90,14 +96,8 @@ exit 0`);
       port: 80,
       targets: [asg],
     });
-    const zoneId = props?.zoneId ?? this.node.tryGetContext('zoneId');
-    if (!zoneId) {
-      throw new Error('ZoneId is required.');
-    }
-    const zoneName = props?.zoneName ?? this.node.tryGetContext('zoneName');
-    if (!zoneName) {
-      throw new Error('ZoneName is required.');
-    }
+    const zoneId = props.zoneId;
+    const zoneName = props.zoneName;
     const zone = r53.HostedZone.fromHostedZoneAttributes(this, 'myZone', {
       hostedZoneId: zoneId,
       zoneName: zoneName,

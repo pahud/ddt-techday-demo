@@ -1,5 +1,5 @@
-import { App } from '@aws-cdk/core';
-import { DemoStack } from './stack';
+import { App, Annotations, Stack } from '@aws-cdk/core';
+import { Demo } from './demo';
 
 // for development, use account/region from cdk cli
 const devEnv = {
@@ -9,7 +9,26 @@ const devEnv = {
 
 const app = new App();
 
-new DemoStack(app, 'asg-stack-dev', { env: devEnv });
+const DEFAULT_UNDEFINED_STRING = 'undefined';
+
+const ctx = {
+  acm: app.node.tryGetContext('acm'),
+  zoneId: app.node.tryGetContext('zoneId'),
+  zoneName: app.node.tryGetContext('zoneName'),
+};
+
+
+const stack = new Stack(app, 'DemoStack', { env: devEnv });
+
+if (!(ctx.acm && ctx.zoneId && ctx.zoneName)) {
+  Annotations.of(stack).addWarning('Warning: acm, zoneId and zoneName from context variables not found.');
+}
+
+new Demo(stack, 'asg-stack-dev', {
+  acm: ctx.acm || DEFAULT_UNDEFINED_STRING,
+  zoneId: ctx.zoneId || DEFAULT_UNDEFINED_STRING,
+  zoneName: ctx.zoneName || DEFAULT_UNDEFINED_STRING,
+});
 // new MyStack(app, 'my-stack-prod', { env: prodEnv });
 
 app.synth();

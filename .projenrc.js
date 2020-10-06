@@ -6,15 +6,15 @@ const project = new AwsCdkTypeScriptApp({
   authorName: 'Neil Kuan',
   authorEmail: 'guan840912@gmail.com',
   cdkDependencies: [
-    '@aws-cdk/aws-iam',
-    '@aws-cdk/aws-s3',
     '@aws-cdk/core',
-    '@aws-cdk/aws-ec2',
-    '@aws-cdk/aws-certificatemanager',
-    '@aws-cdk/aws-certificatemanager',
-    '@aws-cdk/aws-elasticloadbalancingv2',
-    '@aws-cdk/aws-route53-targets',
     '@aws-cdk/aws-autoscaling',
+    '@aws-cdk/aws-certificatemanager',
+    '@aws-cdk/aws-ec2',
+    '@aws-cdk/aws-elasticloadbalancingv2',
+    '@aws-cdk/aws-iam',
+    '@aws-cdk/aws-route53',
+    '@aws-cdk/aws-route53-targets',
+    '@aws-cdk/aws-s3',
   ],
 });
 project.addScripts({
