@@ -54,7 +54,6 @@
     "@aws-cdk/aws-iam": "^1.66.0",
     "@aws-cdk/aws-route53": "^1.66.0",
     "@aws-cdk/aws-route53-targets": "^1.66.0",
-    "@aws-cdk/aws-s3": "^1.66.0",
     "@aws-cdk/core": "^1.66.0"
   },
   "bundledDependencies": [],

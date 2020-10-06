@@ -296,7 +296,7 @@
     "@aws-cdk/cx-api" "1.66.0"
     constructs "^3.0.4"
 
-"@aws-cdk/aws-s3@1.66.0", "@aws-cdk/aws-s3@^1.66.0":
+"@aws-cdk/aws-s3@1.66.0":
   version "1.66.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3/-/aws-s3-1.66.0.tgz#2b8ebc6647eec3967f43fbf6b90896c8595c9944"
   integrity sha512-e/LNaqj/kVaMPMetYTKvTJODH1a3IKQeRsmY1yHDKSxIVyCrxDMAYpARxft5l4uehZ5GbJEJUn/Jcs5zL0jSNQ==
