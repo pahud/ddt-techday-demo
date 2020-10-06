@@ -44,10 +44,6 @@ exit 0`);
       maxAzs: 2,
       natGateways: 1,
     });
-    // const acmArn = props?.acm ?? this.node.tryGetContext('acm');
-    // if (!acmArn) {
-    //   throw new Error('ACM ARN is required.');
-    // }
     const acmArn = props.acm;
     const acm = certmgr.Certificate.fromCertificateArn(this, 'demoAcm', acmArn);
     const alb = new elb.ApplicationLoadBalancer(this, 'myalb', {
@@ -100,15 +96,7 @@ exit 0`);
       port: 80,
       targets: [asg],
     });
-    // const zoneId = props?.zoneId ?? this.node.tryGetContext('zoneId');
-    // if (!zoneId) {
-    //   throw new Error('ZoneId is required.');
-    // }
     const zoneId = props.zoneId;
-    // const zoneName = props?.zoneName ?? this.node.tryGetContext('zoneName');
-    // if (!zoneName) {
-    //   throw new Error('ZoneName is required.');
-    // }
     const zoneName = props.zoneName;
     const zone = r53.HostedZone.fromHostedZoneAttributes(this, 'myZone', {
       hostedZoneId: zoneId,
